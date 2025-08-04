@@ -1,6 +1,4 @@
-#Development Environment Setup:
-
 scapy
 python-nmap
 numpy
-sklearn
+scikit-learn
