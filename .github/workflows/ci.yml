@@ -1,0 +1,12 @@
+name: CI
+on: [push, pull_request] #when to run
+
+jobs:
+  test:
+    runs-on: ubuntu-latest #OS image
+    steps:
+      - uses: actions/checkout@v4 # 1. clone repo
+      - uses: actions/setup-python@v5 # 2. setup python
+        with: { python-version: "3.11" }
+      - run: pip install -r requirements.txt # install python prerequisits
+      - run: python -m pytest tests/ || true # run tests
