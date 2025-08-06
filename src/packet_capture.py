@@ -1,4 +1,4 @@
-from scapy.all import sniff, IP, TCP
+from scapy.all import sniff, IP, TCP, ICMP, UDP
 from collections import defaultdict
 import threading
 import queue
@@ -6,7 +6,7 @@ import queue
 class PacketCapture:
     def __init__(self):
         #packet_queue -> packets detected by sniffer enter the queue
-        self.packet_queue = queue.queue()
+        self.packet_queue = queue.Queue()
         #stop_capture -> flipable flag, asks sniffer to exit cleanly
         self.stop_capture = threading.Event()
     

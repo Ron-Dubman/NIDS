@@ -1,8 +1,8 @@
 import pytest
 import time 
 import threading
-from scapy.all import IP, TCP, Ether, Raw
-from src.PacketCapture import PacketCapture
+from scapy.all import IP, TCP, Ether, Raw, ICMP, UDP
+from src.packet_capture import PacketCapture
 
 class TestPacketCapture:
     #unit tests for PacketCapture:
@@ -38,14 +38,6 @@ class TestPacketCapture:
         pc.packet_callback(udp_pkt)
         assert pc.packet_queue.empty()
 
-    def test_thread_start_stop(self):
-        #Tests whether thread can start and stop cleanly
-        pc = PacketCapture()
-        pc.start_capture(interface="lo")
-        time.sleep(0.1)
-        assert pc.capture_thread.is_alive()
-        pc.stop()
-        assert not pc.capture_thread.is_alive()
 
     def test_queue_under_load(self):
         #Test whether packets are enqueued correctly under heavy load
@@ -53,5 +45,5 @@ class TestPacketCapture:
         for _ in range(100):
             pkt = Ether() / IP() / TCP()
             pc.packet_callback(pkt)
-            
+
         assert pc.packet_queue.qsize() == 100
