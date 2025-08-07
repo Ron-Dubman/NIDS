@@ -1,6 +1,7 @@
 import pytest
 from scapy.all import IP, TCP, Ether, Raw
 from src.traffic_analyzer import TrafficAnalyzer
+from collections import defaultdict
 
 class TestTrafficAnalyzer:
     #unit tests for traffic analyzer
