@@ -5,6 +5,12 @@ from src.traffic_analyzer import TrafficAnalyzer
 class TestTrafficAnalyzer:
     #unit tests for traffic analyzer
 
+    #tests if constructor works
+    def test_instantiates(self):
+        ta = TrafficAnalyzer()
+        assert isinstance(ta, TrafficAnalyzer)
+        assert isinstance(ta.flow_stats,defaultdict)
+
     def test_first_packet_creates_flow(self):
         #Tests whether the first packet of a flow sets counters correctly
         ta = TrafficAnalyzer()
