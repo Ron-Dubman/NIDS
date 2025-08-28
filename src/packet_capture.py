@@ -17,7 +17,7 @@ class PacketCapture:
             self.packet_queue.put(packet)
     
     #the function begins capturing packets from the interface
-    def start_capture(self, interface = "eth0"):
+    def start_capture(self, interface = "lo"):
         #separate thread used for sniffing packets
         def capture_thread():
             sniff(iface=interface,prn=self.packet_callback,store=0,stop_filter=lambda _: self.stop_capture.is_set())
