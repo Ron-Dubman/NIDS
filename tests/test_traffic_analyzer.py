@@ -24,7 +24,7 @@ class TestTrafficAnalyzer:
         assert stats["packet_count"] == 1
         assert stats["byte_count"] == len(pkt)
         assert stats["start_time"] == stats["last_time"] == pkt.time
-        assert features["packet size"] == len(pkt)
+        assert features["packet_size"] == len(pkt)
 
     def test_second_packet_updates_counters(self):
         #Test whether the second packet of a flow updates counters correctly
@@ -42,7 +42,7 @@ class TestTrafficAnalyzer:
         assert stats["byte_count"] == len(pkt1) + len(pkt2)
         assert stats["start_time"] == pkt1.time
         assert stats["last_time"] == pkt2.time
-        assert features2["packet size"] == len(pkt2)
+        assert features2["packet_size"] == len(pkt2)
 
         
 
