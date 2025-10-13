@@ -3,3 +3,4 @@ python-nmap
 numpy
 scikit-learn
 pytest
+streamlit
