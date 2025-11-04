@@ -14,23 +14,24 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-#3. train and run
+#3. collect normal traffic data from live traffic for Isolation Forest ML model (reccomended learning time > 15 minutes (900 seconds))
+sudo ~/NIDS_proj/NIDS/.venv/bin/python3 -m src.main --learn 900
+
+#4. train the ML model on collected data and start the IDS
 sudo ~/NIDS_proj/NIDS/.venv/bin/python3 -m src.main --train
 ```
-#### Open a new tab and watch alerts:
+#### Open streamlit dashboard to view alerts and analytics:
 ```bash
-tail -f ids_alerts.log
+streamlit run src/streamlit_app.py
 ```
 #### Open a new tab and open a http server on port 8000:
 ```bash 
 python3 -m http.server 8000
 ```
 #### Open a new tab and generate test traffic:
-| Attack type | Command (second terminal) |
-|:-----------:|:-------------------------:|
-| Normal HTTP | `curl -s http://localhost:8000 > /dev/null` |
-| SYN flood   | `sudo hping3 -S -p 8000 -s 12345 -k -i u100 127.0.0.1` |
-| Port scan   | `sudo hping3 -A -p 8000 -s 12345 -k -i u100 127.0.0.1` |
+```bash
+sudo python3 mock_traffic_generator.py normal/anomalous/syn-flood/port-scan
+```
 
 ## Architecture
 | Component | Purpose |
@@ -39,7 +40,8 @@ python3 -m http.server 8000
 | `TrafficAnalyzer` | Per-flow feature extractor |
 | `DetectionEngine` | Signature rules + `IsolationForest` |
 | `AlertSystem` | JSON logger |
-| `main.py` | CLI glue |
+|`intrusion_detection_system`| initializes and connects all components|
+| `main.py` | entry point, passes command line arguments |
 
 ## ✅ Tests
 ```bash 
