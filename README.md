@@ -15,10 +15,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 #3. collect normal traffic data from live traffic for Isolation Forest ML model (reccomended learning time > 15 minutes (900 seconds))
-sudo ~/NIDS_proj/NIDS/.venv/bin/python3 -m src.main --learn 900
+sudo ~/NIDS/.venv/bin/python3 -m src.main --learn 900
 
 #4. train the ML model on collected data and start the IDS
-sudo ~/NIDS_proj/NIDS/.venv/bin/python3 -m src.main --train
+sudo ~/NIDS/.venv/bin/python3 -m src.main --train
 ```
 #### Open streamlit dashboard to view alerts and analytics:
 ```bash
